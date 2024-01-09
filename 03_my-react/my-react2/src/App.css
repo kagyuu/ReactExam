@@ -29,3 +29,8 @@
   grid-column: 1 / span 2;
   background: lightblue;
 }
+
+.weather {
+  width: 200px;
+  float: left;
+}
