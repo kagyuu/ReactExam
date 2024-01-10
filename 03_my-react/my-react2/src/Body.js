@@ -7,22 +7,8 @@ import { API_KEY } from './Secrets';
 // Secrets.js は .gitignore にしています
 // API Key は各自 https://openweathermap.org/api の Current Weather Data (無料) を取得してください
 
-// 日本の主要都市のリスト
-const CITIES = [
-    "Sapporo",
-    "Sendai",
-    "Tokyo",
-    "Nagoya",
-    "Kyoto",
-    "Osaka",
-    "Kobe",
-    "Hiroshima",
-    "Fukuoka",
-    "Okinawa"
-];
-
 // 天気予報を表示するコンポーネント
-function Weather({city}) {
+function Weather({city, idx}) {
     // 天気データを保持するステート
     const [weather, setWeather] = useState(null);
   
@@ -42,7 +28,7 @@ function Weather({city}) {
     // コンポーネントがマウントされたときに API から天気データを取得する
     useEffect(() => {
       fetchWeather();
-    }, []);
+    });
   
     // 天気データがない場合はローディングを表示する
     if (!weather) {
@@ -52,7 +38,7 @@ function Weather({city}) {
     // 天気データがある場合は、都市名、気温、天気アイコン、天気説明を表示する
     return (
       <div className="weather">
-        <h2>{city}</h2>
+        <h2>{idx}. {city}</h2>
         <p>{weather.main.temp} ℃</p>
         <img
           src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
@@ -63,12 +49,12 @@ function Weather({city}) {
     );
   };
 
-export default function Body() {
+export default function Body({cities}) {
     return (
-        <>
-        {CITIES.map((elem,idx) => (
-            <Weather city={elem}/>
+      <>
+        {cities.map((elem,idx) => (
+            <Weather city={elem} idx={idx}/>
         ))}
-        </>
+      </>
     );
 }
