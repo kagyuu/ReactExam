@@ -1,8 +1,33 @@
 import './App.css';
 
+const JP_CITIES = ["Sapporo","Sendai","Tokyo","Nagoya","Kyoto","Osaka","Kobe","Hiroshima","Fukuoka","Okinawa"];
+const CN_CITIES = ["Beijing","Chengdu","Chongqing","Dongguan","Guangzhou","Nanchong","Nanjing","Shanghai"
+,"Shenzhen","Tianjin","Wuhan","Xi'an"];
+const US_CITIES = ["Anchorage","Chicago","Dallas","Denver","Honolulu","Houston","Los Angeles","Miami","New York"
+,"Palo Alto","Philadelphia","Phoenix","San Francisco","Seattle","Washington"    
+];
+const EU_CITIES = ["Vienna","Brussels","Sofia","Copenhagen","Helsinki","Paris","Berlin","Athens","Nuuk","Reykjavik"
+,"Dublin","Rome","Oslo","London"];
+
 export default function Menu({callback}) {
     const handleMenuClick = (area) => {
-        callback(area);
+        switch(area) {
+        case 'ja':
+            callback(JP_CITIES);
+            break;
+        case 'cn':
+            callback(CN_CITIES);
+            break;
+        case 'us':
+            callback(US_CITIES);
+            break;
+        case 'eu':
+            callback(EU_CITIES);
+            break;
+        default:
+            callback([]);
+            break;
+        }
     };
     
     return (

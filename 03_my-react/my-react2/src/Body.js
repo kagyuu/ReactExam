@@ -16,10 +16,15 @@ function Weather({city, idx}) {
     const fetchWeather = async () => {
       try {
         const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city},JP&units=metric&appid=${API_KEY}`
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`
         );
         const data = await response.json();
-        setWeather(data);
+        if (data.temp) {
+          setWeather(data);
+        } else {
+          console.error("Can't fetch weather:");
+          console.error(data);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -53,7 +58,8 @@ export default function Body({cities}) {
     return (
       <>
         {cities.map((elem,idx) => (
-            <Weather city={elem} idx={idx}/>
+            // List を展開するときには key (一意な値) を設定して、React.js に再レタリングが必要かのヒントを与える
+            <Weather key={elem} city={elem} idx={idx}/>
         ))}
       </>
     );

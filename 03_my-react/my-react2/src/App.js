@@ -1,28 +1,18 @@
 import './App.css';
+import { useState } from "react";
+
 // 拡張子 js mjs jsx ts tsx は省略できる。将来 TypeScript 化しても import を変えなくていい
 import Header from './Header'
 import Menu from './Menu'
 import Body from './Body'
 import Footer from './Footer'
 
-// 日本の主要都市のリスト
-const CITIES = [
-  "Sapporo",
-  "Sendai",
-  "Tokyo",
-  "Nagoya",
-  "Kyoto",
-  "Osaka",
-  "Kobe",
-  "Hiroshima",
-  "Fukuoka",
-  "Okinawa"
-];
-
 function App() {
-  const callbackFromMenu = (area) => {
-    console.log(area);
-  }
+  const [CITIES, updateCities] = useState([]);
+
+  const callbackFromMenu = (cities) => {
+    updateCities(cities);
+  };
 
   return (
     <div id="layoutContainer">
