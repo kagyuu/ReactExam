@@ -12,8 +12,8 @@ export default function Footer({name, year}) {
 
     return (
         <>
-        <p onClick={handleClick}>
-        Copyright © {yy} {name} All Rights Reserved.
+        <p align="center" onClick={handleClick}>
+            Copyright © {yy} {name} All Rights Reserved.
         </p>
         </>
     );

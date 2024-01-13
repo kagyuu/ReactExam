@@ -33,6 +33,7 @@
 .weather {
   width: 200px;
   float: left;
+  padding-left: 20px;
 }
 
 button.link-style-btn{

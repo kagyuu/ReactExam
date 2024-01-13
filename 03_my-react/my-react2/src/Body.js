@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
 import { API_KEY } from './Secrets';
+import loading from './loading.gif';
 
 // OpenWeatherMap API のキーは、Secrets.js に次のように定義する
 // export const API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
@@ -19,7 +20,7 @@ function Weather({city, idx}) {
           `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`
         );
         const data = await response.json();
-        if (data.temp) {
+        if (data.weather) {
           setWeather(data);
         } else {
           console.error("Can't fetch weather:");
@@ -37,7 +38,13 @@ function Weather({city, idx}) {
   
     // 天気データがない場合はローディングを表示する
     if (!weather) {
-      return <div>Loading...</div>;
+      return (
+        <div className="weather">
+          <h2>{idx}. {city}</h2>
+          <p>Loading...</p>
+          <img src={loading} alt="loading"/>
+        </div>
+      );
     }
   
     // 天気データがある場合は、都市名、気温、天気アイコン、天気説明を表示する
