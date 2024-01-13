@@ -17,15 +17,15 @@ function App() {
   return (
     <div id="layoutContainer">
       {/* 子コンポーネントに、JSXを渡せる。子コンポーネント側からは、引数 children で取得できる */}
-      <div id="header">
+      <div className="header">
         <Header>
           <h1>Weather Information</h1>
         </Header>
       </div>
-      <div id="nav"><Menu callback={callbackFromMenu}/></div>
-      <div id="body"><Body cities={CITIES}/></div>
+      <div className="nav"><Menu callback={callbackFromMenu}/></div>
+      <div className="body"><Body cities={CITIES}/></div>
       {/* 子コンポーネントに、タグ属性でパラメータを渡せる(props)。 props には Javascript (配列や関数) も渡せる */}
-      <div id="footer"><Footer name="MYCompay" year="2024"/></div>
+      <div className="footer"><Footer name="MYCompay" year="2024"/></div>
     </div>
   );
 }
