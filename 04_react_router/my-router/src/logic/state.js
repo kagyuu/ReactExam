@@ -13,9 +13,21 @@ export const counterAtom = atom({
     default: 0
 });
 
-export const articlePkAtom = atom({
-    key: 'articlePkAtom',
+export const articleIdsAtom = atom({
+    key: 'articleIdsAtom',
     default: []
+});
+
+export const articleIdsSelector = selector({
+    key: 'articleIdsSelector',
+    /** 
+     * Numbering article id.
+     * @param get a function to get atom.
+     */
+    get: ({get}) => {
+        const ids = get(articleIdsAtom);
+        return Math.max(...(ids.length ? ids : [0])) + 1;
+    }
 });
 
 export const articleAtom = atomFamily({
@@ -23,12 +35,24 @@ export const articleAtom = atomFamily({
     default: null
 });
 
-export const articleSelector = selector({
+export const articleListSelector = selector({
     key: 'articleSelector',
+    /** 
+     * Get all articles.
+     * @param get a function to get atom.
+     */
     get: ({get}) => {
-
+        const ids = get(articleIdsAtom);
+        return ids.map(id => get(articleAtom(id)));
     },
-    set: ({set, reset}, {type, id, newItem}) => {
-
+    /** 
+     * Set all articles.
+     * @param get a function to get atom.
+     * @param set a function to sett atom.
+     * @param reset a function to reset atom.
+     */
+    set: ({get, set, reset}, item) => {
+        set(item.id, item);
+        set(articleIdsAtom, get(articleIdsAtom).add(item.id));
     }
 });
