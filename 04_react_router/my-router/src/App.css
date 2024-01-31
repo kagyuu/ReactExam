@@ -35,6 +35,11 @@ a.active {
   font-weight: bold;
 }
 
+.errorMsg {
+  color: pink;
+  font-weight: bold;
+}
+
 button.link-style-btn{
   cursor: pointer;
   border: none;

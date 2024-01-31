@@ -5,7 +5,6 @@ import BaseLayout from './BaseLayout';
 import TopPage from './TopPage';
 import ArticlePage from './ArticlePage';
 import EditPage from './EditPage';
-import EditAction from './logic/EditAction';
 import AboutPage from './AboutPage';
 import NotFoundPage from './NotFoundPage';
 
@@ -15,7 +14,7 @@ const routes = createBrowserRouter(
       <Route path="" element={<TopPage/>}/>
       <Route path="article/:id" element={<ArticlePage/>}/>
       <Route path="about" element={<AboutPage/>}/>
-      <Route path="edit/:id" element={<EditPage/>} action={EditAction}/>
+      <Route path="edit/:id" element={<EditPage/>}/>
       <Route path="*" element={<NotFoundPage/>}/>
     </Route>
   )
