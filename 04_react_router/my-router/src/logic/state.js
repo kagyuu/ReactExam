@@ -1,4 +1,4 @@
-import {atom, atomFamily, selector} from 'recoil';
+import {atom, atomFamily, selector, selectorFamily} from 'recoil';
 
 // CAUTION: Don't miss spell of "key" and "default".
 //
@@ -13,21 +13,9 @@ export const counterAtom = atom({
     default: 0
 });
 
-export const articleIdsAtom = atom({
-    key: 'articleIdsAtom',
+export const idsAtom = atom({
+    key: 'idsAtom',
     default: []
-});
-
-export const articleIdsSelector = selector({
-    key: 'articleIdsSelector',
-    /** 
-     * Numbering article id.
-     * @param get a function to get atom.
-     */
-    get: ({get}) => {
-        const ids = get(articleIdsAtom);
-        return Math.max(...(ids.length ? ids : [0])) + 1;
-    }
 });
 
 export const articleAtom = atomFamily({
@@ -35,14 +23,26 @@ export const articleAtom = atomFamily({
     default: null
 });
 
+export const artilceSelector = selectorFamily({
+  key: "artilceSelector",
+  get:  (id) => ({ get }) => {
+      const atom = get(articleAtom(id));
+      return atom;
+  },
+  set: (id) => ({set}, item) => {
+    set(articleAtom(id), item);
+    set(idsAtom, ids => [...ids, id]);
+  }
+});
+
 export const articleListSelector = selector({
-    key: 'articleSelector',
+    key: 'articleListSelector',
     /** 
      * Get all articles.
      * @param get a function to get atom.
      */
     get: ({get}) => {
-        const ids = get(articleIdsAtom);
+        const ids = get(idsAtom);
         return ids.map(id => get(articleAtom(id)));
     },
     /** 
@@ -52,7 +52,8 @@ export const articleListSelector = selector({
      * @param reset a function to reset atom.
      */
     set: ({get, set, reset}, item) => {
-        set(item.id, item);
-        set(articleIdsAtom, get(articleIdsAtom).add(item.id));
+        console.log(item);
+        set(articleAtom(item.id), item);
+        set(idsAtom, ids => [...ids, item.id]);
     }
 });
