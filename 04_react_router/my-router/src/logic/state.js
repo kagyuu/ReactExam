@@ -31,7 +31,12 @@ export const artilceSelector = selectorFamily({
   },
   set: (id) => ({set}, item) => {
     set(articleAtom(id), item);
-    set(idsAtom, ids => [...ids, id]);
+    set(idsAtom, ids => {
+        if (ids.includes(id)) {
+            return ids;
+        }
+        return [...ids, id];
+    });
   }
 });
 
